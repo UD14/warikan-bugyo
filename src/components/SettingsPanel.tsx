@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Building, Wallet, Edit3 } from 'lucide-react';
 import type { UserConfig, MessageTemplates, PaymentInfo, BankAccount } from '../types';
 import { defaultTemplates } from '../utils/message';
+import { generateId } from '../utils/uuid';
 
 type Props = {
   userConfig: UserConfig;
@@ -37,7 +38,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
     updatePaymentInfo({
       bankAccounts: [
         ...userConfig.paymentInfo.bankAccounts,
-        { id: crypto.randomUUID(), bankName: '', branchName: '', accountType: '普通', accountNumber: '', accountHolder: '' }
+        { id: generateId(), bankName: '', branchName: '', accountType: '普通', accountNumber: '', accountHolder: '' }
       ]
     });
   };

@@ -1,6 +1,6 @@
-import React from 'react';
 import type { Event, Phase, Participant } from '../types';
 import { Plus, Trash2, Users, Receipt, Pencil, Copy } from 'lucide-react';
+import { generateId } from '../utils/uuid';
 
 type Props = {
   event: Event;

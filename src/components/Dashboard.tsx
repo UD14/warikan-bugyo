@@ -1,5 +1,6 @@
 import React from 'react';
 import { Plus, Trash2, CheckCircle, Clock, ChevronRight, Coins, Settings } from 'lucide-react';
+import { generateId } from '../utils/uuid';
 import type { AppState, Event } from '../types';
 
 interface DashboardProps {
@@ -11,12 +12,12 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlobalSettings }) => {
   const handleCreateEvent = () => {
     const newEvent: Event = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name: '新しい飲み会',
       phases: [],
       participants: [
         {
-          id: crypto.randomUUID(),
+          id: generateId(),
           name: '自分（幹事）',
           hasPaid: true,
           adjustments: {}

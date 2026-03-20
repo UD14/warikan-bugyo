@@ -2,6 +2,7 @@ import { useReducer, useEffect, useMemo } from 'react';
 import type { Event, AppState, Participant, Phase, UserConfig, CalculationResult } from '../types';
 import { calculateSettlement } from '../utils/calculate';
 import { defaultTemplates } from '../utils/message';
+import { generateId } from '../utils/uuid';
 
 type Action = 
   | { type: 'SET_ACTIVE_EVENT'; payload: string | null }
@@ -29,7 +30,7 @@ const defaultUserConfig: UserConfig = {
   paymentInfo: {
     paypayId: '',
     bankAccounts: [
-      { id: crypto.randomUUID(), bankName: '', branchName: '', accountType: '普通', accountNumber: '', accountHolder: '' }
+      { id: generateId(), bankName: '', branchName: '', accountType: '普通', accountNumber: '', accountHolder: '' }
     ]
   },
   messageTemplates: defaultTemplates
@@ -227,7 +228,7 @@ function appReducer(state: AppState, action: Action): AppState {
 
       const oldToNewParticipantId: Record<string, string> = {};
       const newParticipants = sourceEvent.participants.map(p => {
-        const newId = crypto.randomUUID();
+        const newId = generateId();
         oldToNewParticipantId[p.id] = newId;
         return { ...p, id: newId, hasPaid: false, adjustments: {} };
       });

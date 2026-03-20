@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Event, Phase, Participant } from '../types';
 import { Plus, Trash2, Users, Receipt, Pencil, Copy } from 'lucide-react';
 import { generateId } from '../utils/uuid';
@@ -31,7 +32,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
 
   const handleAddPhase = () => {
     const newPhase: Phase = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name: `新しいお店`,
       totalAmount: 0,
       participantIds: event.participants.map(p => p.id) // デフォルトで全員参加
@@ -57,7 +58,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
     }
 
     const newParticipant: Participant = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name,
       adjustments: {},
       hasPaid: false

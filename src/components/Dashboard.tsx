@@ -1,0 +1,150 @@
+import React from 'react';
+import { Plus, Trash2, CheckCircle, Clock, ChevronRight, Coins, Settings } from 'lucide-react';
+import type { AppState, Event } from '../types';
+
+interface DashboardProps {
+  state: AppState;
+  dispatch: React.Dispatch<any>;
+  onOpenGlobalSettings: () => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlobalSettings }) => {
+  const handleCreateEvent = () => {
+    const newEvent: Event = {
+      id: crypto.randomUUID(),
+      name: '新しい飲み会',
+      phases: [],
+      participants: [
+        {
+          id: crypto.randomUUID(),
+          name: '自分（幹事）',
+          hasPaid: true,
+          adjustments: {}
+        }
+      ],
+      roundingUnit: 10,
+      status: 'active',
+      createdAt: new Date().toISOString(),
+    };
+    dispatch({ type: 'ADD_EVENT', payload: newEvent });
+  };
+
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('ja-JP', { 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <div className="flex justify-between items-end mb-2">
+        <div>
+          <h2 className="text-2xl font-black text-gray-900 tracking-tight">飲み会一覧</h2>
+          <p className="text-xs font-bold text-gray-400 mt-1">過去の精算履歴を管理・保存できます</p>
+        </div>
+        <button
+          onClick={onOpenGlobalSettings}
+          className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all"
+          title="設定"
+        >
+          <Settings size={20} />
+        </button>
+      </div>
+
+      <div className="grid gap-4">
+        <button
+          onClick={handleCreateEvent}
+          className="group relative bg-white border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:border-indigo-400 hover:bg-indigo-50/30 transition-all active:scale-[0.98]"
+        >
+          <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Plus size={24} strokeWidth={3} />
+          </div>
+          <span className="text-sm font-black text-gray-500 group-hover:text-indigo-700">新しい飲み会を作成</span>
+        </button>
+
+        {state.events.length === 0 ? (
+          <div className="text-center py-12">
+            <Coins className="mx-auto text-gray-200 mb-2" size={48} />
+            <p className="text-gray-400 text-sm font-bold">まだデータがありません</p>
+          </div>
+        ) : (
+          state.events.map((event) => (
+            <div 
+              key={event.id}
+              className={`group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all ${
+                event.status === 'completed' ? 'opacity-75' : ''
+              }`}
+            >
+              <div className="p-5 flex items-center justify-between">
+                <div 
+                  className="flex-1 cursor-pointer"
+                  onClick={() => dispatch({ type: 'SET_ACTIVE_EVENT', payload: event.id })}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    {event.status === 'completed' ? (
+                      <span className="flex items-center text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">
+                        <CheckCircle size={10} className="mr-1" /> 清算済
+                      </span>
+                    ) : (
+                      <span className="flex items-center text-[10px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider">
+                        <Clock size={10} className="mr-1" /> 進行中
+                      </span>
+                    )}
+                    <span className="text-xs font-bold text-gray-400">{formatDate(event.createdAt)}</span>
+                  </div>
+                  <h3 className="text-lg font-black text-gray-900 group-hover:text-indigo-600 transition-colors">
+                    {event.name}
+                  </h3>
+                  <div className="flex items-center gap-4 mt-2">
+                    <div className="text-[10px] font-bold text-gray-400 flex items-center">
+                      <Plus size={10} className="mr-1" /> {event.participants.length}名参加
+                    </div>
+                    <div className="text-[10px] font-bold text-gray-400 flex items-center">
+                      <Plus size={10} className="mr-1" /> {event.phases.length}店舗
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 ml-4">
+                  <button
+                    onClick={() => dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id })}
+                    className={`p-2 rounded-xl transition-all ${
+                      event.status === 'completed' 
+                        ? 'text-gray-300 hover:text-amber-500 hover:bg-amber-50' 
+                        : 'text-gray-300 hover:text-emerald-500 hover:bg-emerald-50'
+                    }`}
+                    title={event.status === 'completed' ? '未完了に戻す' : '清算済みにする'}
+                  >
+                    <CheckCircle size={20} />
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (window.confirm('このイベントを削除しますか？')) {
+                        dispatch({ type: 'REMOVE_EVENT', payload: event.id });
+                      }
+                    }}
+                    className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                    title="削除"
+                  >
+                    <Trash2 size={20} />
+                  </button>
+                  <button
+                    onClick={() => dispatch({ type: 'SET_ACTIVE_EVENT', payload: event.id })}
+                    className="p-2 text-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                  >
+                    <ChevronRight size={20} strokeWidth={3} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};

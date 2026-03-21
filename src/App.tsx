@@ -71,45 +71,41 @@ function App() {
           ) : (
             <>
               <div className="flex items-center justify-between gap-3 mb-4">
-                <div className="flex items-center gap-3">
-                  <button 
-                    onClick={handleBackToDashboard}
-                    className="p-1 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-                  >
-                    <ChevronLeft size={24} strokeWidth={3} />
-                  </button>
-                  <div className="relative flex items-center group">
-                    <span 
-                      ref={spanRef}
-                      className="invisible absolute whitespace-pre text-2xl font-black p-0"
-                    >
-                      {activeEvent.name || 'イベント名'}
-                    </span>
-                    <input
-                      type="text"
-                      className="text-lg md:text-2xl font-black border-none bg-transparent focus:ring-0 p-0 text-left placeholder-gray-300"
-                      style={{ width: inputWidth ? `${inputWidth + 12}px` : 'auto', minWidth: '4ch' }}
-                      value={activeEvent.name}
-                      onChange={(e) => dispatch({ type: 'UPDATE_EVENT_NAME', payload: e.target.value })}
-                      placeholder="イベント名"
-                    />
-                    <Pencil 
-                      size={18} 
-                      className="text-gray-300 ml-2 cursor-pointer flex-shrink-0 hover:text-indigo-600 transition-colors" 
-                      onClick={(e) => {
-                        const input = (e.currentTarget.previousSibling as HTMLInputElement);
-                        input?.focus();
-                      }}
-                    />
+                  <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0 overflow-hidden">
                     <button 
-                      onClick={() => setShowHelp(true)}
-                      className="w-5 h-5 ml-2 flex items-center justify-center text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all border border-gray-100"
-                      title="使い方・説明"
+                      onClick={handleBackToDashboard}
+                      className="p-1 -ml-1 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex-shrink-0"
                     >
-                      <span className="text-[10px] font-black">?</span>
+                      <ChevronLeft size={24} strokeWidth={3} className="md:size-7" />
                     </button>
+                    <div className="relative flex items-center group flex-1 min-w-0 overflow-hidden">
+                      <span 
+                        ref={spanRef}
+                        className="invisible absolute whitespace-pre text-lg md:text-2xl font-black p-0"
+                      >
+                        {activeEvent.name || 'イベント名'}
+                      </span>
+                      <input
+                        type="text"
+                        className="text-lg md:text-2xl font-black border-none bg-transparent focus:ring-0 p-0 text-left placeholder-gray-300 truncate w-full transition-all"
+                        style={{ width: inputWidth ? `${inputWidth + 12}px` : '100%', maxWidth: '100%', minWidth: '4ch' }}
+                        value={activeEvent.name}
+                        onChange={(e) => dispatch({ type: 'UPDATE_EVENT_NAME', payload: e.target.value })}
+                        placeholder="イベント名"
+                      />
+                      <Pencil 
+                        size={16} 
+                        className="text-gray-300 ml-2 cursor-pointer flex-shrink-0 hover:text-indigo-600 transition-colors hidden sm:block" 
+                      />
+                      <button 
+                        onClick={() => setShowHelp(true)}
+                        className="w-5 h-5 ml-2 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all border border-gray-100 hidden sm:flex"
+                        title="使い方・説明"
+                      >
+                        <span className="text-[10px] font-black">?</span>
+                      </button>
+                    </div>
                   </div>
-                </div>
                 <button 
                   onClick={() => setIsSettingsOpen(true)}
                   className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-gray-100"

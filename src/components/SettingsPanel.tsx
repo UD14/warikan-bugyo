@@ -156,7 +156,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                         </div>
                         
                         <div className="space-y-3">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                             <div>
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">銀行名</label>
                               <input 
@@ -177,7 +177,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             </div>
                           </div>
                           
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3">
                             <div className="sm:col-span-1">
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">種別</label>
                               <select 

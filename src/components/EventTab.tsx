@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { Event, Phase, Participant } from '../types';
 import { Plus, Trash2, Users, Receipt, Pencil, Copy } from 'lucide-react';
 import { generateId } from '../utils/uuid';
@@ -10,20 +10,20 @@ type Props = {
 };
 
 export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
-  const [isAddingParticipant, setIsAddingParticipant] = React.useState(false);
-  const [newParticipantName, setNewParticipantName] = React.useState('');
-  const [editingParticipantId, setEditingParticipantId] = React.useState<string | null>(null);
-  const [editingName, setEditingName] = React.useState('');
-  const participantInputRef = React.useRef<HTMLInputElement>(null);
-  const editInputRef = React.useRef<HTMLInputElement>(null);
+  const [isAddingParticipant, setIsAddingParticipant] = useState(false);
+  const [newParticipantName, setNewParticipantName] = useState('');
+  const [editingParticipantId, setEditingParticipantId] = useState<string | null>(null);
+  const [editingName, setEditingName] = useState('');
+  const participantInputRef = useRef<HTMLInputElement>(null);
+  const editInputRef = useRef<HTMLInputElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAddingParticipant && participantInputRef.current) {
       participantInputRef.current.focus();
     }
   }, [isAddingParticipant]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (editingParticipantId && editInputRef.current) {
       editInputRef.current.focus();
       editInputRef.current.select();
@@ -149,7 +149,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
               <span className="text-sm font-bold">過去の飲み会をコピーして作成</span>
             </div>
             <select 
-              className="text-sm font-bold bg-white border border-indigo-200 text-indigo-700 rounded-lg py-1.5 pl-3 pr-8 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer shadow-sm transition-all hover:border-indigo-300"
+              className="text-sm font-bold bg-white border border-indigo-200 text-indigo-700 rounded-lg py-2 md:py-1.5 pl-3 pr-8 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer shadow-sm transition-all hover:border-indigo-300 w-full md:w-auto"
               value=""
               onChange={(e) => {
                 const id = e.target.value;
@@ -357,7 +357,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                               <div className="flex items-center">
                                 {isCustomMode ? (
                                   <div className="flex items-center bg-white border border-indigo-100 rounded-lg overflow-hidden shadow-sm">
-                                    <div className="bg-indigo-50 px-2 py-1 border-r border-indigo-100 flex items-center justify-center">
+                                    <div className="bg-indigo-50 px-2 py-1.5 border-r border-indigo-100 flex items-center justify-center">
                                       <span className="text-[10px] font-black text-indigo-600">x</span>
                                     </div>
                                     <input 
@@ -365,11 +365,11 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                                       value={adj.value}
                                       step="0.1"
                                       onChange={(e) => updateAdjustment(p, phase.id, 'multiplier', e.target.value)}
-                                      className="w-14 text-center text-xs font-black border-none focus:ring-0 py-1"
+                                      className="w-16 text-center text-xs font-black border-none focus:ring-0 py-1.5"
                                     />
                                   </div>
                                 ) : (
-                                  <div className="flex gap-1">
+                                  <div className="flex gap-1.5 md:gap-1">
                                     {[
                                       { label: '少', value: 0.5 },
                                       { label: '並', value: 1.0 },
@@ -378,9 +378,9 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                                       <button
                                         key={preset.label}
                                         onClick={() => updateAdjustment(p, phase.id, 'multiplier', String(preset.value))}
-                                        className={`w-9 h-7 text-[10px] font-black rounded-lg transition-all ${
+                                        className={`w-10 md:w-9 h-8 md:h-7 text-[10px] font-black rounded-lg transition-all ${
                                           adj.value === preset.value
-                                            ? 'bg-indigo-600 text-white shadow-sm scale-105'
+                                            ? 'bg-indigo-600 text-white shadow-sm scale-110'
                                             : 'bg-white border border-gray-200 text-gray-400 hover:border-indigo-300 hover:text-indigo-600'
                                         }`}
                                       >

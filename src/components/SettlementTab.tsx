@@ -60,14 +60,14 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
             <p className="text-green-600 font-medium">お疲れ様でした！</p>
           </div>
         ) : (
-          <div className="flex justify-between items-center text-left">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-center sm:text-left gap-4">
             <div>
-              <p className="text-sm font-bold text-gray-500 mb-1">総額</p>
-              <p className="text-2xl font-black text-gray-900">¥{totalAmount.toLocaleString()}</p>
+              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-1">総額</p>
+              <p className="text-2xl md:text-3xl font-black text-gray-900">¥{totalAmount.toLocaleString()}</p>
             </div>
-            <div className="text-right">
-              <p className="text-sm font-bold text-gray-500 mb-1">未集金</p>
-              <p className="text-2xl font-black text-red-500">¥{remainingAmount.toLocaleString()}</p>
+            <div className="sm:text-right">
+              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-1">未集金</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500">¥{remainingAmount.toLocaleString()}</p>
             </div>
           </div>
         )}
@@ -142,7 +142,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
       {/* メッセージ生成 */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden text-left">
         <div className="bg-gray-50 px-5 py-4 border-b border-gray-100 flex flex-col space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center">
               <MessageCircle size={18} className="text-gray-500 mr-2" />
               <h2 className="font-bold text-gray-800">メッセージ案内</h2>
@@ -157,7 +157,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
             </div>
             <button
               onClick={() => handleCopy(allMessage, 'all')}
-              className={`flex items-center px-4 py-2 rounded-xl text-sm font-black transition-all active:scale-95 ${
+              className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
                 copiedType === 'all' 
                   ? 'bg-green-100 text-green-700' 
                   : 'bg-indigo-900 text-white hover:bg-indigo-950 shadow-md'
@@ -199,11 +199,11 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
 
       {results.some(r => !r.hasPaid) && (
         <section className="bg-white rounded-xl shadow-sm border border-red-100 overflow-hidden text-left">
-          <div className="bg-red-50/50 px-5 py-4 border-b border-red-100 flex items-center justify-between">
+          <div className="bg-red-50/50 px-5 py-4 border-b border-red-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="font-bold text-red-700">未払い者向けリマインド</h2>
             <button
               onClick={() => handleCopy(remindMessage, 'remind')}
-              className={`flex items-center px-4 py-2 rounded-xl text-sm font-black transition-all active:scale-95 ${
+              className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
                 copiedType === 'remind' 
                   ? 'bg-green-100 text-green-700' 
                   : 'bg-white text-red-600 border border-red-200 hover:bg-red-50'

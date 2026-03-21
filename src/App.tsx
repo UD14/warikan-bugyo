@@ -27,7 +27,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 pb-20 font-sans">
+    <div className="min-h-screen bg-gray-50 text-gray-900 pb-32 font-sans">
       <header className="bg-white shadow-sm sticky top-0 z-30">
         {/* ブランディングバー */}
         <div className="bg-indigo-950 text-white py-1.5 px-4 shadow-sm">
@@ -48,7 +48,7 @@ function App() {
                 </div>
                 <div className="flex items-center gap-2">
                   <div>
-                    <h1 className="text-3xl font-black text-gray-900 tracking-tight">わりかん奉行</h1>
+                    <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">わりかん奉行</h1>
                     <p className="text-[10px] font-black text-indigo-500 uppercase tracking-widest">爆速精算システム</p>
                   </div>
                   <button 
@@ -87,7 +87,7 @@ function App() {
                     </span>
                     <input
                       type="text"
-                      className="text-2xl font-black border-none bg-transparent focus:ring-0 p-0 text-left placeholder-gray-300"
+                      className="text-lg md:text-2xl font-black border-none bg-transparent focus:ring-0 p-0 text-left placeholder-gray-300"
                       style={{ width: inputWidth ? `${inputWidth + 12}px` : 'auto', minWidth: '4ch' }}
                       value={activeEvent.name}
                       onChange={(e) => dispatch({ type: 'UPDATE_EVENT_NAME', payload: e.target.value })}
@@ -176,25 +176,25 @@ function App() {
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-md border border-gray-100 rounded-2xl shadow-2xl p-1.5 flex gap-1 z-40">
           <button 
             onClick={() => setActiveTab('input')}
-            className={`flex items-center px-6 py-2.5 rounded-xl text-sm font-black transition-all ${
+            className={`flex items-center px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-black transition-all ${
               activeTab === 'input' 
                 ? 'bg-indigo-900 text-white shadow-lg shadow-indigo-200 scale-105' 
                 : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
             }`}
           >
-            <span className="mr-2">1.</span>
-            <Pencil size={16} className="mr-1.5" /> 入力
+            <span className="mr-1 md:mr-2">1.</span>
+            <Pencil size={14} className="md:size-[16px] mr-1 md:mr-1.5" /> 入力
           </button>
           <button 
             onClick={() => setActiveTab('settlement')}
-            className={`flex items-center px-6 py-2.5 rounded-xl text-sm font-black transition-all ${
+            className={`flex items-center px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-black transition-all ${
               activeTab === 'settlement' 
                 ? 'bg-indigo-900 text-white shadow-lg shadow-indigo-200 scale-105' 
                 : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
             }`}
           >
-            <span className="mr-2">2.</span>
-            <CheckSquare size={16} className="mr-1.5" /> 精算
+            <span className="mr-1 md:mr-2">2.</span>
+            <CheckSquare size={14} className="md:size-[16px] mr-1 md:mr-1.5" /> 精算
           </button>
         </div>
       )}

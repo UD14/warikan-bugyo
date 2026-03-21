@@ -156,7 +156,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                         </div>
                         
                         <div className="space-y-3">
-                          <div className="grid grid-cols-2 gap-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">銀行名</label>
                               <input 
@@ -177,8 +177,8 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             </div>
                           </div>
                           
-                          <div className="grid grid-cols-3 gap-3">
-                            <div className="col-span-1">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <div className="sm:col-span-1">
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">種別</label>
                               <select 
                                 className="w-full px-2 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none appearance-none cursor-pointer"
@@ -189,7 +189,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                                 <option value="当座">当座</option>
                               </select>
                             </div>
-                            <div className="col-span-2">
+                            <div className="sm:col-span-2">
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">口座番号</label>
                               <input 
                                 className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none"

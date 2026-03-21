@@ -14,6 +14,8 @@ type Props = {
 export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userConfig, onOpenSettings }) => {
   const [copiedType, setCopiedType] = useState<'all' | 'remind' | null>(null);
   const [displayMode, setDisplayMode] = useState<'amount' | 'person'>('amount');
+  const [customAllMessage, setCustomAllMessage] = useState<string | null>(null);
+  const [customRemindMessage, setCustomRemindMessage] = useState<string | null>(null);
 
   const handleCopy = (text: string, type: 'all' | 'remind') => {
     navigator.clipboard.writeText(text).then(() => {
@@ -47,6 +49,9 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
 
   const allMessage = generateAllMessage(event, results, userConfig.paymentInfo, displayMode, userConfig.messageTemplates);
   const remindMessage = generateRemindMessage(event, results, userConfig.paymentInfo, displayMode, userConfig.messageTemplates);
+
+  const currentAllMessage = customAllMessage ?? allMessage;
+  const currentRemindMessage = customRemindMessage ?? remindMessage;
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
@@ -156,7 +161,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
               </button>
             </div>
             <button
-              onClick={() => handleCopy(allMessage, 'all')}
+              onClick={() => handleCopy(currentAllMessage, 'all')}
               className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
                 copiedType === 'all' 
                   ? 'bg-green-100 text-green-700' 
@@ -168,10 +173,13 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
             </button>
           </div>
         </div>
-        <div className="p-5 pb-0">
+        <div className="p-5 pb-0 flex items-center justify-between">
           <div className="flex p-1 bg-gray-100 rounded-lg w-fit">
             <button
-              onClick={() => setDisplayMode('amount')}
+              onClick={() => {
+                setDisplayMode('amount');
+                setCustomAllMessage(null);
+              }}
               className={`px-4 py-1.5 text-[10px] font-black uppercase rounded-md transition-all ${
                 displayMode === 'amount' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
               }`}
@@ -179,7 +187,10 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
               円単位
             </button>
             <button
-              onClick={() => setDisplayMode('person')}
+              onClick={() => {
+                setDisplayMode('person');
+                setCustomAllMessage(null);
+              }}
               className={`px-4 py-1.5 text-[10px] font-black uppercase rounded-md transition-all ${
                 displayMode === 'person' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
               }`}
@@ -187,12 +198,20 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
               人単位
             </button>
           </div>
+          
+          <button
+            onClick={() => setCustomAllMessage(null)}
+            className="text-[10px] font-black text-indigo-600 hover:text-indigo-700 flex items-center gap-1 bg-indigo-50 px-2 py-1 rounded"
+          >
+            <PartyPopper size={12} />
+            テンプレを反映
+          </button>
         </div>
         <div className="p-0">
           <textarea 
-            readOnly
             className="w-full h-48 p-5 pt-3 text-sm font-mono text-gray-700 bg-transparent border-none resize-none focus:ring-0"
-            value={allMessage}
+            value={currentAllMessage}
+            onChange={(e) => setCustomAllMessage(e.target.value)}
           />
         </div>
       </section>
@@ -202,7 +221,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
           <div className="bg-red-50/50 px-5 py-4 border-b border-red-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h2 className="font-bold text-red-700">未払い者向けリマインド</h2>
             <button
-              onClick={() => handleCopy(remindMessage, 'remind')}
+              onClick={() => handleCopy(currentRemindMessage, 'remind')}
               className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
                 copiedType === 'remind' 
                   ? 'bg-green-100 text-green-700' 
@@ -213,11 +232,20 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
               {copiedType === 'remind' ? 'コピー完了' : 'リマインドをコピー'}
             </button>
           </div>
+          <div className="px-5 pt-3 flex justify-end">
+            <button
+              onClick={() => setCustomRemindMessage(null)}
+              className="text-[10px] font-black text-red-600 hover:text-red-700 flex items-center gap-1 bg-red-50 px-2 py-1 rounded"
+            >
+              <PartyPopper size={12} />
+              テンプレを反映
+            </button>
+          </div>
           <div className="p-0">
             <textarea 
-              readOnly
               className="w-full h-32 p-5 text-sm font-mono text-gray-700 bg-transparent border-none resize-none focus:ring-0"
-              value={remindMessage}
+              value={currentRemindMessage}
+              onChange={(e) => setCustomRemindMessage(e.target.value)}
             />
           </div>
         </section>

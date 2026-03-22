@@ -81,7 +81,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
           <div className="mt-4 pt-4 border-t border-gray-100/50">
             <div className="w-full bg-gray-100 rounded-full h-3 mb-1 overflow-hidden">
               <div 
-                className="bg-indigo-600 h-3 rounded-full transition-all duration-500 ease-out" 
+                className="bg-teal-600 h-3 rounded-full transition-all duration-500 ease-out" 
                 style={{ width: `${totalAmount > 0 ? (collectedAmount / totalAmount) * 100 : 0}%` }}
               ></div>
             </div>
@@ -109,7 +109,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
                 <div className="flex items-center">
                   <span className="font-bold text-gray-800 text-lg">{result.name}</span>
                   {index === 0 && (
-                    <span className="ml-2 text-[10px] font-black bg-indigo-900 text-white px-1.5 py-0.5 rounded uppercase tracking-widest">
+                    <span className="ml-2 text-[10px] font-black bg-teal-900 text-white px-1.5 py-0.5 rounded uppercase tracking-widest">
                       幹事
                     </span>
                   )}
@@ -124,7 +124,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
                 className={`flex flex-col items-center justify-center p-2 rounded-xl border-2 transition-all ${
                   result.hasPaid 
                     ? 'border-emerald-500 bg-emerald-50 text-emerald-600' 
-                    : 'border-gray-200 bg-white text-gray-400 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600'
+                    : 'border-gray-200 bg-white text-gray-400 hover:border-teal-300 hover:bg-teal-50 hover:text-teal-600'
                 }`}
               >
                 {result.hasPaid ? (
@@ -152,7 +152,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
             <h2 className="font-bold text-gray-800 text-sm">メッセージ案内</h2>
             <button
               onClick={onOpenSettings}
-              className="ml-2 p-1 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors flex items-center"
+              className="ml-2 p-1 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded transition-colors flex items-center"
               title="設定"
             >
               <Settings size={14} />
@@ -163,7 +163,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
             className={`flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-black transition-all active:scale-95 shrink-0 ${
               copiedType === 'all' 
                 ? 'bg-green-100 text-green-700' 
-                : 'bg-indigo-900 text-white hover:bg-indigo-950 shadow-sm'
+                : 'bg-teal-900 text-white hover:bg-teal-950 shadow-sm'
             }`}
           >
             {copiedType === 'all' ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
@@ -178,7 +178,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
                 setCustomAllMessage(null);
               }}
               className={`px-4 py-1.5 text-[10px] font-black uppercase rounded-md transition-all ${
-                displayMode === 'amount' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                displayMode === 'amount' ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
               円単位
@@ -189,7 +189,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
                 setCustomAllMessage(null);
               }}
               className={`px-4 py-1.5 text-[10px] font-black uppercase rounded-md transition-all ${
-                displayMode === 'person' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                displayMode === 'person' ? 'bg-white text-teal-700 shadow-sm' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
               人単位
@@ -198,7 +198,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
           
           <button
             onClick={() => setCustomAllMessage(null)}
-            className="text-[10px] font-black text-indigo-600 hover:text-indigo-700 flex items-center gap-1 bg-indigo-50 px-2 py-1.5 rounded-md transition-colors"
+            className="text-[10px] font-black text-teal-600 hover:text-teal-700 flex items-center gap-1 bg-teal-50 px-2 py-1.5 rounded-md transition-colors"
           >
             <RotateCcw size={12} />
             テンプレを反映

@@ -30,11 +30,11 @@ function App() {
     <div className="min-h-screen bg-gray-50 text-gray-900 pb-32 font-sans">
       <header className="bg-white shadow-sm sticky top-0 z-30">
         {/* ブランディングバー */}
-        <div className="bg-indigo-950 text-white py-1.5 px-4 shadow-sm">
+        <div className="bg-teal-950 text-white py-1.5 px-4 shadow-sm">
           <div className="max-w-3xl mx-auto flex items-center justify-between">
             <div className="flex items-center">
-              <Coins size={14} className="text-amber-400 mr-2" />
-              <h1 className="text-[10px] font-black tracking-widest uppercase opacity-80">わりかん奉行</h1>
+              <Coins size={14} className="text-orange-400 mr-2" />
+              <h1 className="text-[10px] font-black tracking-widest uppercase opacity-80">割り勘の相棒</h1>
             </div>
           </div>
         </div>
@@ -43,17 +43,17 @@ function App() {
           {!activeEvent ? (
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-900 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100">
+                <div className="w-12 h-12 bg-teal-900 rounded-xl flex items-center justify-center shadow-lg shadow-teal-100">
                   <Coins className="text-white" size={28} strokeWidth={2.5} />
                 </div>
                 <div className="flex items-center gap-2">
                   <div>
-                    <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">わりかん奉行</h1>
-                    <p className="text-[10px] font-black text-indigo-500 uppercase tracking-widest">爆速精算システム</p>
+                    <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight">割り勘の相棒</h1>
+                    <p className="text-[10px] font-black text-teal-500 uppercase tracking-widest">スマート精算アプリ</p>
                   </div>
                   <button 
                     onClick={() => setShowHelp(true)}
-                    className="w-6 h-6 flex items-center justify-center text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all border border-gray-100 mt-1"
+                    className="w-6 h-6 flex items-center justify-center text-gray-300 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-all border border-gray-100 mt-1"
                     title="使い方・説明"
                   >
                     <span className="text-xs font-black">?</span>
@@ -62,7 +62,7 @@ function App() {
               </div>
               <button 
                 onClick={() => setIsSettingsOpen(true)}
-                className="p-2.5 bg-gray-50 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-gray-100"
+                className="p-2.5 bg-gray-50 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all border border-gray-100"
                 title="設定"
               >
                 <ClipboardList size={24} />
@@ -74,7 +74,7 @@ function App() {
                   <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0 overflow-hidden">
                     <button 
                       onClick={handleBackToDashboard}
-                      className="p-1 -ml-1 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex-shrink-0"
+                      className="p-1 -ml-1 text-gray-500 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-colors flex-shrink-0"
                     >
                       <ChevronLeft size={24} strokeWidth={3} className="md:size-7" />
                     </button>
@@ -95,11 +95,11 @@ function App() {
                       />
                       <Pencil 
                         size={16} 
-                        className="text-gray-300 ml-2 cursor-pointer flex-shrink-0 hover:text-indigo-600 transition-colors hidden sm:block" 
+                        className="text-gray-300 ml-2 cursor-pointer flex-shrink-0 hover:text-teal-600 transition-colors hidden sm:block" 
                       />
                       <button 
                         onClick={() => setShowHelp(true)}
-                        className="w-5 h-5 ml-2 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all border border-gray-100 hidden sm:flex"
+                        className="w-5 h-5 ml-2 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-all border border-gray-100 hidden sm:flex"
                         title="使い方・説明"
                       >
                         <span className="text-[10px] font-black">?</span>
@@ -108,7 +108,7 @@ function App() {
                   </div>
                 <button 
                   onClick={() => setIsSettingsOpen(true)}
-                  className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border border-gray-100"
+                  className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all border border-gray-100"
                   title="設定"
                 >
                   <ClipboardList size={22} />
@@ -120,7 +120,7 @@ function App() {
                   onClick={() => setActiveTab('input')}
                   className={`flex items-center py-3 px-6 border-b-2 transition-all ${
                     activeTab === 'input' 
-                      ? 'border-indigo-600 text-indigo-700' 
+                      ? 'border-teal-600 text-teal-700' 
                       : 'border-transparent text-gray-400 hover:text-gray-600'
                   }`}
                 >
@@ -131,7 +131,7 @@ function App() {
                   onClick={() => setActiveTab('settlement')}
                   className={`flex items-center py-3 px-6 border-b-2 transition-all ${
                     activeTab === 'settlement' 
-                      ? 'border-indigo-600 text-indigo-700' 
+                      ? 'border-teal-600 text-teal-700' 
                       : 'border-transparent text-gray-400 hover:text-gray-600'
                   }`}
                 >
@@ -174,7 +174,7 @@ function App() {
             onClick={() => setActiveTab('input')}
             className={`flex items-center px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-black transition-all ${
               activeTab === 'input' 
-                ? 'bg-indigo-900 text-white shadow-lg shadow-indigo-200 scale-105' 
+                ? 'bg-teal-900 text-white shadow-lg shadow-teal-200 scale-105' 
                 : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
             }`}
           >
@@ -185,7 +185,7 @@ function App() {
             onClick={() => setActiveTab('settlement')}
             className={`flex items-center px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-black transition-all ${
               activeTab === 'settlement' 
-                ? 'bg-indigo-900 text-white shadow-lg shadow-indigo-200 scale-105' 
+                ? 'bg-teal-900 text-white shadow-lg shadow-teal-200 scale-105' 
                 : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
             }`}
           >

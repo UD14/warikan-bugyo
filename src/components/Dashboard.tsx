@@ -50,7 +50,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
         </div>
         <button
           onClick={onOpenGlobalSettings}
-          className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all"
+          className="p-2 text-gray-400 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-all"
           title="設定"
         >
           <Settings size={20} />
@@ -60,12 +60,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
       <div className="grid gap-4">
         <button
           onClick={handleCreateEvent}
-          className="group relative bg-white border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:border-indigo-400 hover:bg-indigo-50/30 transition-all active:scale-[0.98]"
+          className="group relative bg-white border-2 border-dashed border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 hover:border-teal-400 hover:bg-teal-50/30 transition-all active:scale-[0.98]"
         >
-          <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+          <div className="w-12 h-12 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
             <Plus size={24} strokeWidth={3} />
           </div>
-          <span className="text-sm font-black text-gray-500 group-hover:text-indigo-700">新しい飲み会を作成</span>
+          <span className="text-sm font-black text-gray-500 group-hover:text-teal-700">新しい飲み会を作成</span>
         </button>
 
         {state.events.length === 0 ? (
@@ -95,7 +95,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
                       className={`flex items-center text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider transition-colors active:scale-95 ${
                         event.status === 'completed' 
                           ? 'text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200' 
-                          : 'text-amber-700 bg-amber-100 hover:bg-amber-200 border border-amber-200'
+                          : 'text-orange-700 bg-orange-100 hover:bg-orange-200 border border-orange-200'
                       }`}
                       title={event.status === 'completed' ? '未完了に戻す' : '清算済みにする'}
                     >
@@ -107,7 +107,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
                     </button>
                     <span className="text-xs font-bold text-gray-400 ml-1">{formatDate(event.createdAt)}</span>
                   </div>
-                  <h3 className="text-lg font-black text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                  <h3 className="text-lg font-black text-gray-900 group-hover:text-teal-600 transition-colors line-clamp-2">
                     {event.name}
                   </h3>
                   <div className="flex items-center gap-4 mt-2">
@@ -135,7 +135,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
                   </button>
                   <button
                     onClick={() => dispatch({ type: 'SET_ACTIVE_EVENT', payload: event.id })}
-                    className="p-2 text-indigo-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+                    className="p-2 text-teal-400 hover:text-teal-600 hover:bg-teal-50 rounded-xl transition-all"
                   >
                     <ChevronRight size={20} strokeWidth={3} />
                   </button>

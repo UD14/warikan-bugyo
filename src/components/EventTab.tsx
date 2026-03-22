@@ -142,14 +142,14 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* 過去の飲み会からコピー */}
       {allEvents && allEvents.length > 1 && (
-        <section className="bg-indigo-50/50 rounded-xl border border-indigo-100 p-4">
+        <section className="bg-teal-50/50 rounded-xl border border-teal-100 p-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center text-indigo-700">
+            <div className="flex items-center text-teal-700">
               <Copy size={18} className="mr-2" />
               <span className="text-sm font-bold">過去の飲み会をコピーして作成</span>
             </div>
             <select 
-              className="text-sm font-bold bg-white border border-indigo-200 text-indigo-700 rounded-lg py-2 md:py-1.5 pl-3 pr-8 focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer shadow-sm transition-all hover:border-indigo-300 w-full md:w-auto"
+              className="text-sm font-bold bg-white border border-teal-200 text-teal-700 rounded-lg py-2 md:py-1.5 pl-3 pr-8 focus:ring-teal-500 focus:border-teal-500 cursor-pointer shadow-sm transition-all hover:border-teal-300 w-full md:w-auto"
               value=""
               onChange={(e) => {
                 const id = e.target.value;
@@ -173,13 +173,13 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
       <section className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold flex items-center text-gray-800">
-            <Users className="mr-2 text-indigo-500" size={20} />
+            <Users className="mr-2 text-teal-500" size={20} />
             参加者 ({event.participants.length}名)
           </h2>
           {!isAddingParticipant && (
             <button 
               onClick={() => setIsAddingParticipant(true)}
-              className="flex items-center text-sm bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg font-bold hover:bg-indigo-100 transition-colors"
+              className="flex items-center text-sm bg-teal-50 text-teal-600 px-3 py-1.5 rounded-lg font-bold hover:bg-teal-100 transition-colors"
             >
               <Plus size={16} className="mr-1" /> 追加
             </button>
@@ -188,7 +188,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
         
         <div className="flex flex-wrap gap-2">
           {event.participants.map(p => (
-            <div key={p.id} className="flex items-center bg-gray-50 border border-gray-200 rounded-full pl-3 pr-1 py-1 group transition-all hover:border-indigo-300">
+            <div key={p.id} className="flex items-center bg-gray-50 border border-gray-200 rounded-full pl-3 pr-1 py-1 group transition-all hover:border-teal-300">
               {editingParticipantId === p.id ? (
                 <input
                   ref={editInputRef}
@@ -221,7 +221,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
           ))}
 
           {isAddingParticipant && (
-            <div className="flex items-center bg-white border-2 border-indigo-300 rounded-full pl-3 pr-1 py-0.5 animate-in zoom-in duration-200">
+            <div className="flex items-center bg-white border-2 border-teal-300 rounded-full pl-3 pr-1 py-0.5 animate-in zoom-in duration-200">
               <input
                 ref={participantInputRef}
                 type="text"
@@ -237,7 +237,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
               />
               <button 
                 onClick={submitAddParticipant}
-                className="p-1 text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
+                className="p-1 text-teal-600 hover:bg-teal-50 rounded-full transition-colors"
               >
                 <Plus size={14} />
               </button>
@@ -256,12 +256,12 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
       <section>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold flex items-center text-gray-800">
-            <Receipt className="mr-2 text-indigo-500" size={20} />
+            <Receipt className="mr-2 text-teal-500" size={20} />
             お店・金額
           </h2>
           <button 
             onClick={handleAddPhase}
-            className="flex items-center text-sm bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-indigo-700 mb-1 shadow-md transition-all active:scale-95"
+            className="flex items-center text-sm bg-teal-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-teal-700 mb-1 shadow-md transition-all active:scale-95"
           >
             <Plus size={16} className="mr-1" /> お店を追加
           </button>
@@ -282,7 +282,7 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                 <div className="bg-gray-50/50 border-b border-gray-100 px-5 py-4 flex justify-between items-start">
                   <div className="w-full">
                     <div className="flex items-center mb-2">
-                      <span className="text-[10px] font-black text-white bg-indigo-900 px-2 py-0.5 rounded mr-2 tracking-widest uppercase">
+                      <span className="text-[10px] font-black text-white bg-teal-900 px-2 py-0.5 rounded mr-2 tracking-widest uppercase">
                         {index + 1}軒目
                       </span>
                       <button 
@@ -315,14 +315,14 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-black text-gray-900 tracking-tight flex items-center">
-                      <Users size={14} className="mr-1.5 text-indigo-400" />
+                      <Users size={14} className="mr-1.5 text-teal-400" />
                       参加者と傾斜
                     </h3>
                     <button
                       onClick={() => toggleCustomMode(phase.id)}
                       className={`text-[10px] font-black px-2 py-1 rounded transition-colors ${
                         isCustomMode 
-                          ? 'bg-amber-100 text-amber-700' 
+                          ? 'bg-orange-100 text-orange-700' 
                           : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                       }`}
                     >
@@ -339,13 +339,13 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                         const adj = p.adjustments[phase.id] || { type: 'multiplier', value: 1.0 };
                         
                         return (
-                          <div key={p.id} className={`flex items-center justify-between p-2.5 rounded-xl transition-all ${isParticipating ? 'bg-indigo-50/30' : 'opacity-30 grayscale'}`}>
+                          <div key={p.id} className={`flex items-center justify-between p-2.5 rounded-xl transition-all ${isParticipating ? 'bg-teal-50/30' : 'opacity-30 grayscale'}`}>
                             <div className="flex items-center flex-1 mr-4">
                               <input
                                 type="checkbox"
                                 checked={isParticipating}
                                 onChange={() => togglePhaseParticipation(phase.id, p.id)}
-                                className="w-5 h-5 text-indigo-600 border-gray-300 rounded-md focus:ring-indigo-500 transition-all cursor-pointer"
+                                className="w-5 h-5 text-teal-600 border-gray-300 rounded-md focus:ring-teal-500 transition-all cursor-pointer"
                                 id={`check-${phase.id}-${p.id}`}
                               />
                               <label htmlFor={`check-${phase.id}-${p.id}`} className="ml-3 text-sm font-black text-gray-800 select-none cursor-pointer">
@@ -356,9 +356,9 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                             {isParticipating && (
                               <div className="flex items-center">
                                 {isCustomMode ? (
-                                  <div className="flex items-center bg-white border border-indigo-100 rounded-lg overflow-hidden shadow-sm">
-                                    <div className="bg-indigo-50 px-2 py-1.5 border-r border-indigo-100 flex items-center justify-center">
-                                      <span className="text-[10px] font-black text-indigo-600">x</span>
+                                  <div className="flex items-center bg-white border border-teal-100 rounded-lg overflow-hidden shadow-sm">
+                                    <div className="bg-teal-50 px-2 py-1.5 border-r border-teal-100 flex items-center justify-center">
+                                      <span className="text-[10px] font-black text-teal-600">x</span>
                                     </div>
                                     <input 
                                       type="number"
@@ -380,8 +380,8 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
                                         onClick={() => updateAdjustment(p, phase.id, 'multiplier', String(preset.value))}
                                         className={`w-10 md:w-9 h-8 md:h-7 text-[10px] font-black rounded-lg transition-all ${
                                           adj.value === preset.value
-                                            ? 'bg-indigo-600 text-white shadow-sm scale-110'
-                                            : 'bg-white border border-gray-200 text-gray-400 hover:border-indigo-300 hover:text-indigo-600'
+                                            ? 'bg-teal-600 text-white shadow-sm scale-110'
+                                            : 'bg-white border border-gray-200 text-gray-400 hover:border-teal-300 hover:text-teal-600'
                                         }`}
                                       >
                                         {preset.label}

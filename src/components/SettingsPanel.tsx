@@ -106,13 +106,13 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
         <nav className="flex px-6 border-b border-gray-100 shrink-0">
           <button 
             onClick={() => setActiveTab('payment')}
-            className={`py-3 px-4 text-xs font-black transition-all border-b-2 ${activeTab === 'payment' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-400'}`}
+            className={`py-3 px-4 text-xs font-black transition-all border-b-2 ${activeTab === 'payment' ? 'border-teal-600 text-teal-600' : 'border-transparent text-gray-400'}`}
           >
             振込先情報
           </button>
           <button 
             onClick={() => setActiveTab('template')}
-            className={`py-3 px-4 text-xs font-black transition-all border-b-2 ${activeTab === 'template' ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-400'}`}
+            className={`py-3 px-4 text-xs font-black transition-all border-b-2 ${activeTab === 'template' ? 'border-teal-600 text-teal-600' : 'border-transparent text-gray-400'}`}
           >
             メッセージテンプレート
           </button>
@@ -123,7 +123,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
             <div className="space-y-6">
               <section>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">
+                  <div className="p-1.5 bg-teal-50 text-teal-600 rounded-lg">
                     <Building size={16} />
                   </div>
                   <h3 className="font-black text-gray-900 text-sm">銀行口座・PayPay ID</h3>
@@ -132,7 +132,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                   <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">PayPay ID / 電話番号</label>
                     <input 
-                      className="w-full px-4 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-sm font-bold transition-all outline-none"
+                      className="w-full px-4 py-3 bg-gray-50 border border-transparent focus:border-teal-500 focus:bg-white rounded-xl text-sm font-bold transition-all outline-none"
                       placeholder="例：paypay_id"
                       value={userConfig.paymentInfo.paypayId}
                       onChange={e => updatePaymentInfo({ paypayId: e.target.value })}
@@ -143,7 +143,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                     {bankAccounts.map((account, index) => (
                       <div key={account.id} className="p-4 bg-gray-50/50 border border-gray-100 rounded-2xl relative group">
                         <div className="flex items-center justify-between mb-3">
-                          <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">銀行口座 {index + 1}</h4>
+                          <h4 className="text-[10px] font-black text-teal-400 uppercase tracking-widest">銀行口座 {index + 1}</h4>
                           {bankAccounts.length > 1 && (
                             <button 
                               onClick={() => removeBankAccount(account.id)}
@@ -160,7 +160,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             <div>
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">銀行名</label>
                               <input 
-                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-teal-500 rounded-lg text-xs font-bold transition-all outline-none"
                                 placeholder="楽天銀行"
                                 value={account.bankName}
                                 onChange={e => updateBankAccount(account.id, { bankName: e.target.value })}
@@ -169,7 +169,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             <div>
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">支店名</label>
                               <input 
-                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-teal-500 rounded-lg text-xs font-bold transition-all outline-none"
                                 placeholder="第一営業"
                                 value={account.branchName}
                                 onChange={e => updateBankAccount(account.id, { branchName: e.target.value })}
@@ -181,7 +181,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             <div className="md:col-span-1">
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">種別</label>
                               <select 
-                                className="w-full px-2 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none appearance-none cursor-pointer"
+                                className="w-full px-2 py-2 bg-white border border-gray-100 focus:border-teal-500 rounded-lg text-xs font-bold transition-all outline-none appearance-none cursor-pointer"
                                 value={account.accountType}
                                 onChange={e => updateBankAccount(account.id, { accountType: e.target.value as '普通' | '当座' })}
                               >
@@ -192,7 +192,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                             <div className="md:col-span-2">
                               <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">口座番号</label>
                               <input 
-                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none"
+                                className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-teal-500 rounded-lg text-xs font-bold transition-all outline-none"
                                 placeholder="1234567"
                                 value={account.accountNumber}
                                 onChange={e => updateBankAccount(account.id, { accountNumber: e.target.value })}
@@ -203,7 +203,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                           <div>
                             <label className="block text-[9px] font-black text-gray-400 uppercase mb-1 ml-1">口座名義 (カタカナ)</label>
                             <input 
-                              className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-indigo-500 rounded-lg text-xs font-bold transition-all outline-none"
+                              className="w-full px-3 py-2 bg-white border border-gray-100 focus:border-teal-500 rounded-lg text-xs font-bold transition-all outline-none"
                               placeholder="タナカ タロウ"
                               value={account.accountHolder}
                               onChange={e => updateBankAccount(account.id, { accountHolder: e.target.value })}
@@ -216,18 +216,18 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                   
                   <button 
                     onClick={addBankAccount}
-                    className="w-full py-3 mt-4 border-2 border-dashed border-gray-100 text-gray-400 hover:text-indigo-600 hover:border-indigo-200 hover:bg-indigo-50/50 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2"
+                    className="w-full py-3 mt-4 border-2 border-dashed border-gray-100 text-gray-400 hover:text-teal-600 hover:border-teal-200 hover:bg-teal-50/50 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2"
                   >
                     + 銀行口座を追加
                   </button>
                 </div>
               </section>
 
-              <div className="p-4 bg-amber-50 rounded-2xl border border-amber-100 flex gap-3">
-                <div className="p-2 bg-amber-100 text-amber-600 rounded-xl shrink-0 h-fit">
+              <div className="p-4 bg-orange-50 rounded-2xl border border-orange-100 flex gap-3">
+                <div className="p-2 bg-orange-100 text-orange-600 rounded-xl shrink-0 h-fit">
                   <Wallet size={16} />
                 </div>
-                <p className="text-[11px] font-bold text-amber-700 leading-normal">
+                <p className="text-[11px] font-bold text-orange-700 leading-normal">
                   ここで設定した情報は、精算メッセージの最後に自動的に追加されます。相手がコピーしやすい形式で入力しましょう。
                 </p>
               </div>
@@ -236,7 +236,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
             <div className="space-y-6">
               <section>
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg">
+                  <div className="p-1.5 bg-teal-50 text-teal-600 rounded-lg">
                     <Edit3 size={16} />
                   </div>
                   <h3 className="font-black text-gray-900 text-sm">テンプレート編集</h3>
@@ -247,7 +247,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                     <div>
                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">全員向け精算案内</label>
                       <textarea 
-                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[180px] leading-relaxed resize-none"
+                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-teal-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[180px] leading-relaxed resize-none"
                         value={userConfig.messageTemplates?.all}
                         onChange={e => updateTemplate('all', e.target.value)}
                         onFocus={() => setLastFocusedTextarea('all')}
@@ -256,7 +256,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                     <div>
                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">催促（リマインド）</label>
                       <textarea 
-                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[120px] leading-relaxed resize-none"
+                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-teal-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[120px] leading-relaxed resize-none"
                         value={userConfig.messageTemplates?.remind}
                         onChange={e => updateTemplate('remind', e.target.value)}
                         onFocus={() => setLastFocusedTextarea('remind')}
@@ -265,8 +265,8 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                   </div>
 
                   <div className="w-[84px] shrink-0">
-                    <div className="sticky top-0 bg-indigo-900 rounded-xl p-2.5 shadow-md h-full flex flex-col">
-                      <h4 className="text-[9px] font-black text-indigo-300 uppercase tracking-widest mb-3 text-center">
+                    <div className="sticky top-0 bg-teal-900 rounded-xl p-2.5 shadow-md h-full flex flex-col">
+                      <h4 className="text-[9px] font-black text-teal-300 uppercase tracking-widest mb-3 text-center">
                          タグ
                       </h4>
                       <div className="flex flex-col gap-2">
@@ -285,7 +285,7 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                       <div className="mt-auto pt-6 flex justify-center pb-2">
                         <button 
                           onClick={resetTemplates}
-                          className="text-[9px] font-bold text-indigo-300/70 hover:text-red-400 transition-colors underline underline-offset-2 break-all text-center leading-tight"
+                          className="text-[9px] font-bold text-teal-300/70 hover:text-red-400 transition-colors underline underline-offset-2 break-all text-center leading-tight"
                         >
                           初期化
                         </button>

@@ -100,7 +100,7 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
         </div>
         
         <div className="divide-y divide-gray-100">
-          {results.map((result, index) => (
+          {results.map((result) => (
             <div 
               key={result.participantId} 
               className={`flex items-center justify-between px-5 py-4 transition-colors ${result.hasPaid ? 'bg-green-50/30' : 'hover:bg-gray-50'}`}
@@ -108,11 +108,6 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
               <div className="flex flex-col">
                 <div className="flex items-center">
                   <span className="font-bold text-gray-800 text-lg">{result.name}</span>
-                  {index === 0 && (
-                    <span className="ml-2 text-[10px] font-black bg-teal-900 text-white px-1.5 py-0.5 rounded uppercase tracking-widest">
-                      幹事
-                    </span>
-                  )}
                 </div>
                 <span className="text-2xl font-black mt-1 text-gray-900 select-all">
                   ¥{result.totalAmount.toLocaleString()}

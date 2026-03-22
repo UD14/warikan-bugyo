@@ -5,6 +5,9 @@ export const defaultTemplates: MessageTemplates = {
   all: `お疲れ様です！
 「{{飲み会名}}」の精算をお願いします🙏
 
+▼内訳
+{{内訳}}
+
 {{支払い金額}}
 
 {{支払い先}}
@@ -13,6 +16,9 @@ export const defaultTemplates: MessageTemplates = {
   remind: `お疲れ様です！
 「{{飲み会名}}」の精算リマインドです🙇‍♂️
 お忙しいところ恐縮ですが、お手隙の際にご確認をお願いします！
+
+▼内訳
+{{内訳}}
 
 {{支払い金額}}
 

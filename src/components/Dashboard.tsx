@@ -2,7 +2,7 @@ import React from 'react';
 import { Plus, Trash2, CheckCircle, Clock, ChevronRight, Coins } from 'lucide-react';
 import { generateId } from '../utils/uuid';
 import { calculateSettlement } from '../utils/calculate';
-import type { AppState, Event, CalculationResult } from '../types';
+import type { AppState, Event } from '../types';
 
 interface DashboardProps {
   state: AppState;

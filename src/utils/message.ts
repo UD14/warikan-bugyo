@@ -8,8 +8,10 @@ export const defaultTemplates: MessageTemplates = {
 ▼内訳
 {{内訳}}
 
+▼支払い金額
 {{支払い金額}}
 
+▼支払い先
 {{支払い先}}
 
 よろしくお願いします！`,
@@ -20,8 +22,10 @@ export const defaultTemplates: MessageTemplates = {
 ▼内訳
 {{内訳}}
 
+▼支払い金額
 {{支払い金額}}
 
+▼支払い先
 {{支払い先}}`
 };
 
@@ -83,7 +87,7 @@ function generateResultSection(results: CalculationResult[], displayMode: 'amoun
       const status = r.hasPaid ? ' 【済】' : '';
       return `${r.name}：¥${r.totalAmount.toLocaleString()}${status}`;
     });
-    return `▼支払い金額\n${lines.join('\n')}`;
+    return lines.join('\n');
   } else {
     // 円単位: 金額でグルーピング
     const groups: Record<number, string[]> = {};
@@ -103,7 +107,7 @@ function generateResultSection(results: CalculationResult[], displayMode: 'amoun
       })
       .join('\n\n');
 
-    return `▼支払い金額\n${groupLines}`;
+    return groupLines;
   }
 }
 
@@ -123,5 +127,5 @@ function generatePaymentSection(paymentInfo: PaymentInfo): string {
   }
 
   if (lines.length === 0) return '';
-  return `▼支払い先\n${lines.join('\n')}`;
+  return lines.join('\n');
 }

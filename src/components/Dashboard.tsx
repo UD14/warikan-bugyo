@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Plus, Trash2, CheckCircle, Clock, ChevronRight, Coins } from 'lucide-react';
 import { generateId } from '../utils/uuid';
 import { calculateSettlement } from '../utils/calculate';
-import type { AppState, Event } from '../types';
+import { ConfirmModal } from './ConfirmModal';
+import type { AppState, Event, CalculationResult } from '../types';
 
 interface DashboardProps {
   state: AppState;
@@ -11,6 +12,23 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch }) => {
+  const [confirmModal, setConfirmModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    confirmText?: string;
+    type: 'warning' | 'danger';
+  }>({
+    isOpen: false,
+    title: '',
+    message: '',
+    onConfirm: () => {},
+    type: 'warning'
+  });
+
+  const closeModal = () => setConfirmModal(prev => ({ ...prev, isOpen: false }));
+
   const handleCreateEvent = () => {
     const newEvent: Event = {
       id: generateId(),
@@ -70,7 +88,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch }) => {
         ) : (
           state.events.map((event) => {
             const results = calculateSettlement(event);
-            const uncollectedAmount = results.filter(r => !r.hasPaid).reduce((sum, r) => sum + r.totalAmount, 0);
+            const uncollectedAmount = results.filter(r => !r.hasPaid).reduce((sum: number, r: CalculationResult) => sum + r.totalAmount, 0);
 
             return (
               <div 
@@ -121,11 +139,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch }) => {
                       onClick={(e) => {
                         e.stopPropagation();
                         if (event.status !== 'completed' && uncollectedAmount > 0) {
-                          if (!window.confirm(`まだ未集金が ¥${uncollectedAmount.toLocaleString()} あります。精算済みにしますか？`)) {
-                            return;
-                          }
+                          setConfirmModal({
+                            isOpen: true,
+                            title: '未集金があります',
+                            message: `まだ未集金が ¥${uncollectedAmount.toLocaleString()} あります。このまま精算済みにしてもよろしいですか？`,
+                            confirmText: '精算済みにする',
+                            type: 'warning',
+                            onConfirm: () => dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id })
+                          });
+                        } else {
+                          dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id });
                         }
-                        dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id });
                       }}
                       className={`p-2 rounded-xl transition-all ${
                         event.status === 'completed'
@@ -139,9 +163,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (window.confirm('このイベントを削除しますか？')) {
-                          dispatch({ type: 'REMOVE_EVENT', payload: event.id });
-                        }
+                        setConfirmModal({
+                          isOpen: true,
+                          title: 'イベントの削除',
+                          message: 'このイベントデータを完全に削除しますか？この操作は取り消せません。',
+                          confirmText: '削除する',
+                          type: 'danger',
+                          onConfirm: () => dispatch({ type: 'REMOVE_EVENT', payload: event.id })
+                        });
                       }}
                       className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                       title="削除"
@@ -161,6 +190,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch }) => {
           })
         )}
       </div>
+
+      <ConfirmModal 
+        isOpen={confirmModal.isOpen}
+        onClose={closeModal}
+        onConfirm={confirmModal.onConfirm}
+        title={confirmModal.title}
+        message={confirmModal.message}
+        confirmText={confirmModal.confirmText}
+        type={confirmModal.type}
+      />
     </div>
   );
 };

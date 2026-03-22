@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Event, CalculationResult, UserConfig } from '../types';
-import { CheckCircle2, Circle, PartyPopper, Copy, Check, MessageCircle, Settings } from 'lucide-react';
+import { CheckCircle2, Circle, RotateCcw, Copy, Check, MessageCircle, Settings } from 'lucide-react';
 import { generateAllMessage, generateRemindMessage } from '../utils/message';
 
 type Props = {
@@ -60,19 +60,19 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
       <section className={`rounded-xl shadow-sm border p-6 text-center ${isComplete ? 'bg-green-50 border-green-200' : 'bg-white border-gray-100'}`}>
         {isComplete ? (
           <div className="flex flex-col items-center justify-center animate-in zoom-in">
-            <PartyPopper size={48} className="text-green-500 mb-3" />
+            <CheckCircle2 size={48} className="text-green-500 mb-3" />
             <h2 className="text-xl font-bold text-green-700 mb-1">集金完了！</h2>
             <p className="text-green-600 font-medium">お疲れ様でした！</p>
           </div>
         ) : (
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-center sm:text-left gap-4">
+          <div className="flex justify-between items-center text-left">
             <div>
-              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-1">総額</p>
-              <p className="text-2xl md:text-3xl font-black text-gray-900">¥{totalAmount.toLocaleString()}</p>
+              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-0.5">総額</p>
+              <p className="text-xl md:text-3xl font-black text-gray-900">¥{totalAmount.toLocaleString()}</p>
             </div>
-            <div className="sm:text-right">
-              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-1">未集金</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500">¥{remainingAmount.toLocaleString()}</p>
+            <div className="text-right">
+              <p className="text-[10px] md:text-sm font-black text-gray-400 uppercase tracking-widest mb-0.5">未集金</p>
+              <p className="text-xl md:text-3xl font-black text-red-500">¥{remainingAmount.toLocaleString()}</p>
             </div>
           </div>
         )}
@@ -146,35 +146,32 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
 
       {/* メッセージ生成 */}
       <section className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden text-left">
-        <div className="bg-gray-50 px-5 py-4 border-b border-gray-100 flex flex-col space-y-2">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center">
-              <MessageCircle size={18} className="text-gray-500 mr-2" />
-              <h2 className="font-bold text-gray-800">メッセージ案内</h2>
-              <button
-                onClick={onOpenSettings}
-                className="ml-3 p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors flex items-center gap-1.5"
-                title="設定"
-              >
-                <Settings size={16} />
-                <span className="text-xs font-bold">設定</span>
-              </button>
-            </div>
+        <div className="bg-gray-50 px-4 py-3 border-b border-gray-100 flex items-center justify-between gap-2">
+          <div className="flex items-center">
+            <MessageCircle size={16} className="text-gray-500 mr-1.5 hidden sm:block" />
+            <h2 className="font-bold text-gray-800 text-sm">メッセージ案内</h2>
             <button
-              onClick={() => handleCopy(currentAllMessage, 'all')}
-              className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
-                copiedType === 'all' 
-                  ? 'bg-green-100 text-green-700' 
-                  : 'bg-indigo-900 text-white hover:bg-indigo-950 shadow-md'
-              }`}
+              onClick={onOpenSettings}
+              className="ml-2 p-1 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-colors flex items-center"
+              title="設定"
             >
-              {copiedType === 'all' ? <Check size={16} className="mr-1" /> : <Copy size={16} className="mr-1" />}
-              {copiedType === 'all' ? 'コピー完了' : '全員向けをコピー'}
+              <Settings size={14} />
             </button>
           </div>
+          <button
+            onClick={() => handleCopy(currentAllMessage, 'all')}
+            className={`flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-black transition-all active:scale-95 shrink-0 ${
+              copiedType === 'all' 
+                ? 'bg-green-100 text-green-700' 
+                : 'bg-indigo-900 text-white hover:bg-indigo-950 shadow-sm'
+            }`}
+          >
+            {copiedType === 'all' ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
+            {copiedType === 'all' ? '完了' : 'コピー'}
+          </button>
         </div>
-        <div className="p-5 pb-0 flex items-center justify-between">
-          <div className="flex p-1 bg-gray-100 rounded-lg w-fit">
+        <div className="p-4 pb-0 flex items-center justify-between">
+          <div className="flex p-0.5 bg-gray-100 rounded-md w-fit">
             <button
               onClick={() => {
                 setDisplayMode('amount');
@@ -201,15 +198,15 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
           
           <button
             onClick={() => setCustomAllMessage(null)}
-            className="text-[10px] font-black text-indigo-600 hover:text-indigo-700 flex items-center gap-1 bg-indigo-50 px-2 py-1 rounded"
+            className="text-[10px] font-black text-indigo-600 hover:text-indigo-700 flex items-center gap-1 bg-indigo-50 px-2 py-1.5 rounded-md transition-colors"
           >
-            <PartyPopper size={12} />
+            <RotateCcw size={12} />
             テンプレを反映
           </button>
         </div>
         <div className="p-0">
           <textarea 
-            className="w-full h-48 p-5 pt-3 text-sm font-mono text-gray-700 bg-transparent border-none resize-none focus:ring-0"
+            className="w-full h-40 p-4 text-sm font-mono text-gray-700 bg-transparent border-none resize-none focus:ring-0"
             value={currentAllMessage}
             onChange={(e) => setCustomAllMessage(e.target.value)}
           />
@@ -217,27 +214,27 @@ export const SettlementTab: React.FC<Props> = ({ event, dispatch, results, userC
       </section>
 
       {results.some(r => !r.hasPaid) && (
-        <section className="bg-white rounded-xl shadow-sm border border-red-100 overflow-hidden text-left">
-          <div className="bg-red-50/50 px-5 py-4 border-b border-red-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h2 className="font-bold text-red-700">未払い者向けリマインド</h2>
+        <section className="bg-white rounded-xl shadow-sm border border-red-100 overflow-hidden text-left mb-8">
+          <div className="bg-red-50/50 px-4 py-3 border-b border-red-100 flex items-center justify-between gap-2">
+            <h2 className="font-bold text-red-700 text-sm">未払い者向けリマインド</h2>
             <button
               onClick={() => handleCopy(currentRemindMessage, 'remind')}
-              className={`flex items-center justify-center px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black transition-all active:scale-95 w-full sm:w-auto ${
+              className={`flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-black transition-all active:scale-95 shrink-0 ${
                 copiedType === 'remind' 
                   ? 'bg-green-100 text-green-700' 
                   : 'bg-white text-red-600 border border-red-200 hover:bg-red-50'
               }`}
             >
-              {copiedType === 'remind' ? <Check size={16} className="mr-1" /> : <Copy size={16} className="mr-1" />}
-              {copiedType === 'remind' ? 'コピー完了' : 'リマインドをコピー'}
+              {copiedType === 'remind' ? <Check size={14} className="mr-1" /> : <Copy size={14} className="mr-1" />}
+              {copiedType === 'remind' ? '完了' : 'コピー'}
             </button>
           </div>
-          <div className="px-5 pt-3 flex justify-end">
+          <div className="px-4 pt-3 flex justify-end">
             <button
               onClick={() => setCustomRemindMessage(null)}
-              className="text-[10px] font-black text-red-600 hover:text-red-700 flex items-center gap-1 bg-red-50 px-2 py-1 rounded"
+              className="text-[10px] font-black text-red-600 hover:text-red-700 flex items-center gap-1 bg-red-50 px-2 py-1.5 rounded-md transition-colors"
             >
-              <PartyPopper size={12} />
+              <RotateCcw size={12} />
               テンプレを反映
             </button>
           </div>

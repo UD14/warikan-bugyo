@@ -86,19 +86,28 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
                   className="flex-1 cursor-pointer"
                   onClick={() => dispatch({ type: 'SET_ACTIVE_EVENT', payload: event.id })}
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    {event.status === 'completed' ? (
-                      <span className="flex items-center text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded uppercase tracking-wider">
-                        <CheckCircle size={10} className="mr-1" /> 清算済
-                      </span>
-                    ) : (
-                      <span className="flex items-center text-[10px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider">
-                        <Clock size={10} className="mr-1" /> 進行中
-                      </span>
-                    )}
-                    <span className="text-xs font-bold text-gray-400">{formatDate(event.createdAt)}</span>
+                  <div className="flex items-center gap-2 mb-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id });
+                      }}
+                      className={`flex items-center text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider transition-colors active:scale-95 ${
+                        event.status === 'completed' 
+                          ? 'text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200' 
+                          : 'text-amber-700 bg-amber-100 hover:bg-amber-200 border border-amber-200'
+                      }`}
+                      title={event.status === 'completed' ? '未完了に戻す' : '清算済みにする'}
+                    >
+                      {event.status === 'completed' ? (
+                        <><CheckCircle size={12} className="mr-1" /> 清算済</>
+                      ) : (
+                        <><Clock size={12} className="mr-1" /> 進行中</>
+                      )}
+                    </button>
+                    <span className="text-xs font-bold text-gray-400 ml-1">{formatDate(event.createdAt)}</span>
                   </div>
-                  <h3 className="text-lg font-black text-gray-900 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="text-lg font-black text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2">
                     {event.name}
                   </h3>
                   <div className="flex items-center gap-4 mt-2">
@@ -111,20 +120,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ state, dispatch, onOpenGlo
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 ml-4">
+                <div className="flex items-center gap-2 ml-3 shrink-0">
                   <button
-                    onClick={() => dispatch({ type: 'TOGGLE_EVENT_COMPLETED', payload: event.id })}
-                    className={`p-2 rounded-xl transition-all ${
-                      event.status === 'completed' 
-                        ? 'text-gray-300 hover:text-amber-500 hover:bg-amber-50' 
-                        : 'text-gray-300 hover:text-emerald-500 hover:bg-emerald-50'
-                    }`}
-                    title={event.status === 'completed' ? '未完了に戻す' : '清算済みにする'}
-                  >
-                    <CheckCircle size={20} />
-                  </button>
-                  <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       if (window.confirm('このイベントを削除しますか？')) {
                         dispatch({ type: 'REMOVE_EVENT', payload: event.id });
                       }

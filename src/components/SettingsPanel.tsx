@@ -242,56 +242,56 @@ export const SettingsPanel: React.FC<Props> = ({ userConfig, dispatch, onClose }
                   <h3 className="font-black text-gray-900 text-sm">テンプレート編集</h3>
                 </div>
                 
-                <div className="space-y-6">
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">全員向け精算案内</label>
-                    <textarea 
-                      className="w-full px-4 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none min-h-[140px] leading-relaxed"
-                      value={userConfig.messageTemplates?.all}
-                      onChange={e => updateTemplate('all', e.target.value)}
-                      onFocus={() => setLastFocusedTextarea('all')}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">催促（リマインド）メッセージ</label>
-                    <textarea 
-                      className="w-full px-4 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none min-h-[100px] leading-relaxed"
-                      value={userConfig.messageTemplates?.remind}
-                      onChange={e => updateTemplate('remind', e.target.value)}
-                      onFocus={() => setLastFocusedTextarea('remind')}
-                    />
-                  </div>
-                  
-                  <div className="flex justify-end pt-2">
-                    <button 
-                      onClick={resetTemplates}
-                      className="text-[10px] font-bold text-gray-400 hover:text-red-500 transition-colors underline underline-offset-2"
-                    >
-                      初期テンプレートに戻す
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-8 p-5 bg-indigo-900 rounded-2xl shadow-xl shadow-indigo-100 overflow-hidden relative group">
-                  <div className="relative z-10">
-                    <h4 className="text-[10px] font-black text-indigo-300 uppercase tracking-widest mb-3 flex items-center gap-2">
-                       利用可能なタグ
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {tags.map(tag => (
-                        <button 
-                          key={tag.value}
-                          onClick={() => insertTag(tag.value)}
-                          className="px-3 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl text-[11px] font-black text-white transition-all active:scale-95 flex items-center gap-1.5"
-                        >
-                          <span className="opacity-50 text-[14px] leading-none">+</span>
-                          {tag.label}
-                        </button>
-                      ))}
+                <div className="flex gap-3">
+                  <div className="flex-1 space-y-4">
+                    <div>
+                      <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">全員向け精算案内</label>
+                      <textarea 
+                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[180px] leading-relaxed resize-none"
+                        value={userConfig.messageTemplates?.all}
+                        onChange={e => updateTemplate('all', e.target.value)}
+                        onFocus={() => setLastFocusedTextarea('all')}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-black text-gray-400 uppercase mb-1.5 ml-1">催促（リマインド）</label>
+                      <textarea 
+                        className="w-full px-3 py-3 bg-gray-50 border border-transparent focus:border-indigo-500 focus:bg-white rounded-xl text-xs font-bold transition-all outline-none h-[120px] leading-relaxed resize-none"
+                        value={userConfig.messageTemplates?.remind}
+                        onChange={e => updateTemplate('remind', e.target.value)}
+                        onFocus={() => setLastFocusedTextarea('remind')}
+                      />
                     </div>
                   </div>
-                  {/* 装飾用 */}
-                  <div className="absolute top-0 right-0 -mr-10 -mt-10 w-32 h-32 bg-indigo-800 rounded-full blur-3xl opacity-50 group-hover:bg-indigo-700 transition-colors" />
+
+                  <div className="w-[84px] shrink-0">
+                    <div className="sticky top-0 bg-indigo-900 rounded-xl p-2.5 shadow-md h-full flex flex-col">
+                      <h4 className="text-[9px] font-black text-indigo-300 uppercase tracking-widest mb-3 text-center">
+                         タグ
+                      </h4>
+                      <div className="flex flex-col gap-2">
+                        {tags.map(tag => (
+                          <button 
+                            key={tag.value}
+                            onClick={() => insertTag(tag.value)}
+                            className="w-full py-2 px-1 bg-white/10 hover:bg-white/20 border border-white/10 rounded-lg text-[9px] font-black text-white transition-all active:scale-95 flex flex-col items-center justify-center gap-0.5"
+                          >
+                            <span className="opacity-50 text-[12px] leading-none">+</span>
+                            <span>{tag.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                      
+                      <div className="mt-auto pt-6 flex justify-center pb-2">
+                        <button 
+                          onClick={resetTemplates}
+                          className="text-[9px] font-bold text-indigo-300/70 hover:text-red-400 transition-colors underline underline-offset-2 break-all text-center leading-tight"
+                        >
+                          初期化
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </section>
             </div>

@@ -51,24 +51,34 @@ export const EventTab: React.FC<Props> = ({ event, allEvents, dispatch }) => {
   };
 
   const submitAddParticipant = () => {
-    const name = newParticipantName.trim();
-    if (!name) {
+    const rawNames = newParticipantName;
+    if (!rawNames.trim()) {
       setIsAddingParticipant(false);
       return;
     }
 
-    const newParticipant: Participant = {
+    // カンマまたは改行で分割し、重複排除とトリムを行う
+    const names = Array.from(new Set(
+      rawNames
+        .split(/[,、\n]/)
+        .map(n => n.trim())
+        .filter(n => n.length > 0)
+    ));
+
+    if (names.length === 0) {
+      setIsAddingParticipant(false);
+      return;
+    }
+
+    const newParticipants: Participant[] = names.map(name => ({
       id: generateId(),
       name,
       adjustments: {},
       hasPaid: false
-    };
-    dispatch({ type: 'ADD_PARTICIPANT', payload: newParticipant });
-    
-    // 既存のすべてのフェーズに新メンバーを追加
-    event.phases.forEach(phase => {
-      handleUpdatePhase(phase.id, { participantIds: [...phase.participantIds, newParticipant.id] });
-    });
+    }));
+
+    // 参加者の一括追加
+    dispatch({ type: 'ADD_PARTICIPANTS', payload: newParticipants });
 
     setNewParticipantName('');
     setIsAddingParticipant(false);

@@ -35,35 +35,35 @@ export function calculateSettlement(event: Event): CalculationResult[] {
       .reduce((sum, a) => sum + a.adjustment.value, 0);
 
     // 倍率で分割すべき基本金額（定額分を引いた金額）
-    // NOTE: 定額オフセットは全体の金額から定額引かれるわけではなく、「均等割額＋オフセット」の意図とする場合は別の計算になる。
-    // 一般的な飲み会の割り勘では、定額は「Aさんは1000円余分に払う」という意味あいで全体のパイから引くのが自然。
     const remainingAmountForMultiplier = phase.totalAmount - fixedOffsetTotal;
 
     // 1倍率あたりの金額ベース（端数計算前）
     const baseAmount = multiplierTotal > 0 ? remainingAmountForMultiplier / multiplierTotal : 0;
 
-    // 各参加者のフェーズ別負担額を加算
+    // 倍率ごとのグループ化を行い、グループ内で同一の金額を割り当てる（誤差防止）
+    const multiplierGroups = new Map<number, string[]>();
     adjustments.forEach(({ participantId, adjustment }) => {
-      let amount = 0;
-      if (adjustment.type === 'fixed_offset') {
-        // 定額オフセットの人は、基本的には「均等割額＋オフセット」というより、固定額そのものとするか？
-        // いいえ、仕様では「定額オフセット（加算/減算）」「新卒は -1000円」などの意図。
-        // ここは一旦、「全員ベース額を払い、その上で加減算される」というより「倍率グループ」と「定額追加/割引」として計算する。
-        // 仕様詳細化: 
-        // type = fixed_offset の value は「基準額からの差額」ではなく、「そのフェーズで支払う固定額」と解釈するのが最もシンプルで破綻しない。
-        // もしくは「定額割引」と「定額追加」であれば、残りのお金を倍率組で割るだけ。
-        // 実装方針: 倍率1.0で計算した上でオフセットを引くのではなく、オフセットは文字通り「固定額引く/足す」
-        
-        // 複雑化を避けるため、「定額」と「倍率」の2パターンとして、定額の人は完全固定額とする。
-        // 例: value = 3000 なら 3000円。
-        amount = adjustment.value;
-      } else {
-        // 倍率計算
-        amount = baseAmount * adjustment.value;
+      if (adjustment.type === 'multiplier') {
+        const v = adjustment.value;
+        if (!multiplierGroups.has(v)) multiplierGroups.set(v, []);
+        multiplierGroups.get(v)!.push(participantId);
       }
+    });
 
+    // 各参加者のフェーズ別負担額を加算
+    // 固定額の人
+    adjustments.filter(a => a.adjustment.type === 'fixed_offset').forEach(({ participantId, adjustment }) => {
       const current = participantAmounts.get(participantId) || 0;
-      participantAmounts.set(participantId, current + amount);
+      participantAmounts.set(participantId, current + adjustment.value);
+    });
+
+    // 倍率グループの人
+    multiplierGroups.forEach((ids, multiplier) => {
+      const amountPerPerson = baseAmount * multiplier;
+      ids.forEach(id => {
+        const current = participantAmounts.get(id) || 0;
+        participantAmounts.set(id, current + amountPerPerson);
+      });
     });
   });
 

@@ -14,6 +14,7 @@ type Action =
   // 以前のAction（アクティブイベントに対して実行）
   | { type: 'UPDATE_EVENT_NAME'; payload: string }
   | { type: 'ADD_PARTICIPANT'; payload: Participant }
+  | { type: 'ADD_PARTICIPANTS'; payload: Participant[] }
   | { type: 'REMOVE_PARTICIPANT'; payload: string }
   | { type: 'UPDATE_PARTICIPANT'; payload: Participant }
   | { type: 'ADD_PHASE'; payload: Phase }
@@ -193,6 +194,13 @@ function appReducer(state: AppState, action: Action): AppState {
       break;
     case 'ADD_PARTICIPANT':
       updatedEvent.participants = [...activeEvent.participants, action.payload];
+      break;
+    case 'ADD_PARTICIPANTS':
+      updatedEvent.participants = [...activeEvent.participants, ...action.payload];
+      updatedEvent.phases = activeEvent.phases.map(ph => ({
+        ...ph,
+        participantIds: [...ph.participantIds, ...action.payload.map(p => p.id)]
+      }));
       break;
     case 'REMOVE_PARTICIPANT':
       updatedEvent.participants = activeEvent.participants.filter(p => p.id !== action.payload);
